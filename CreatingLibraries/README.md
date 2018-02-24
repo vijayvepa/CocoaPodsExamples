@@ -26,7 +26,7 @@ Since it is part of an existing git repo, delete the `.git` folder in the subfol
 
 - Change code in `ReplaceMe.swift`
 
-[AddingCode]:images/AddingCode.png
+[AddingCode]:Images/AddingCode.png
 
 Add code that fadesIn or fadesOut a view. 
 Below is the code that adds a fade behavior to any UIView.
@@ -164,7 +164,7 @@ public extension Fadeable {
 
 ![PodSpecSyntax]
 
-[PodSpecSyntax]:images/PodSpecSyntax.png
+[PodSpecSyntax]:Images/PodSpecSyntax.png
 
 
 ## Changing Usage Code
@@ -174,7 +174,7 @@ To change the example code that uses this pod library
 
 ![ExampleCode]
 
-[ExampleCode]:images/ExampleCode.png
+[ExampleCode]:Images/ExampleCode.png
 
 ### Setup ViewController
 
@@ -210,7 +210,7 @@ import Fadeable
 
 ![SetupView]
 
-[SetupView]:images/SetupView.png
+[SetupView]:Images/SetupView.png
 
 
 ### Wire up the View
@@ -221,6 +221,6 @@ import Fadeable
 
 ![IBOutletCircle]
 
-[IBOutletCircle]:images/IBOutletCircle.png
+[IBOutletCircle]:Images/IBOutletCircle.png
 - Click on the `circle` next to `@IBAction` code and drag it onto the `Button` control on the storyboard. This will associate the tap of the button control to this code.
 
