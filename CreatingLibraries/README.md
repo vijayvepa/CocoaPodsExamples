@@ -1,11 +1,32 @@
-# Creating Pod Libraries
+# 1. Creating Pod Libraries
 
 - make sure cocoa pods is installed
 ```
 brew install cocoapods
 ```
 
-## Creating the Pod
+<!-- TOC -->
+
+- [1. Creating Pod Libraries](#1-creating-pod-libraries)
+	- [1.1. Creating the Pod](#11-creating-the-pod)
+	- [1.2. Adding the Code](#12-adding-the-code)
+		- [1.2.1. Swift 4 Compiler Issues](#121-swift-4-compiler-issues)
+			- [1.2.1.1. Issue 1: NSTimeInterval is now TimeInterval](#1211-issue-1-nstimeinterval-is-now-timeinterval)
+			- [1.2.1.2. Issue 2: Passing non-escaping parameter 'completion' to function expecting an @escaping](#1212-issue-2-passing-non-escaping-parameter-completion-to-function-expecting-an-escaping)
+			- [1.2.1.3. Issue 3: Type 'UIView' does not conform to protocol 'Fadeable'](#1213-issue-3-type-uiview-does-not-conform-to-protocol-fadeable)
+		- [1.2.2. Issue 4: Closure cannot implicitly capture a mutating self parameter](#122-issue-4-closure-cannot-implicitly-capture-a-mutating-self-parameter)
+				- [1.2.2.0.1. Option 1: Class-Type Protocol](#12201-option-1-class-type-protocol)
+				- [1.2.2.0.2. Option 2: Generic Protocol](#12202-option-2-generic-protocol)
+	- [1.3. Changing Pod Metadata](#13-changing-pod-metadata)
+	- [1.4. Changing Usage Code](#14-changing-usage-code)
+		- [1.4.1. Setup ViewController](#141-setup-viewcontroller)
+		- [1.4.2. Add the view](#142-add-the-view)
+		- [1.4.3. Wire up the View](#143-wire-up-the-view)
+
+<!-- /TOC -->
+
+
+## 1.1. Creating the Pod
 Create libraries using this command:
 ```
 pod lib create Fadeable
@@ -17,7 +38,7 @@ pod lib create Fadeable
 
 Since it is part of an existing git repo, delete the `.git` folder in the subfolder.  
 
-## Adding the Code
+## 1.2. Adding the Code
 
 - Open `Fadeable\Example\Fadeable.xcworkspace` in XCode
 - Expand the `Pods` project, `Development Pods` folder, `Fadeable`->`Pods`->`Classes` folder
@@ -84,13 +105,13 @@ extension UIView : Fadeable {
 }
 ```
 
-### Swift 4 Compiler Issues
+### 1.2.1. Swift 4 Compiler Issues
 
-#### Issue 1: NSTimeInterval is now TimeInterval
+#### 1.2.1.1. Issue 1: NSTimeInterval is now TimeInterval
 We can fix this issue by using the `Fix It` button. 
 Just replace `NSTimeInterval` with `TimeInterval`
 
-#### Issue 2: Passing non-escaping parameter 'completion' to function expecting an @escaping 
+#### 1.2.1.2. Issue 2: Passing non-escaping parameter 'completion' to function expecting an @escaping 
 We can fix this issue by using the `Fix It` button as well. It will add an `@escaping` attribute to the `completion` delegate in the `extension`.
 
 ```swift
@@ -99,7 +120,7 @@ public extension Fadeable {
                                  completion: @escaping ((Bool)->Void)...
         
 ```
-#### Issue 3: Type 'UIView' does not conform to protocol 'Fadeable'
+#### 1.2.1.3. Issue 3: Type 'UIView' does not conform to protocol 'Fadeable'
 This occurs if we did not update the `protocol` with `@escaping` attribute fix. (XCode won't update it.)
 
 ```swift
@@ -113,11 +134,11 @@ public protocol Fadeable {
 
 ```
  
-### Issue 4: Closure cannot implicitly capture a mutating self parameter
+### 1.2.2. Issue 4: Closure cannot implicitly capture a mutating self parameter
 
 I had to struggle for 3 hours with this issue. The answers at https://stackoverflow.com/questions/41940994/closure-cannot-implicitly-capture-a-mutating-self-parameter/41941810#_=_ did not make sense to me as I am new to swift. Finally figured out the solutions.
 
-##### Option 1: Class-Type Protocol
+##### 1.2.2.0.1. Option 1: Class-Type Protocol
 We can constrain the protocol to `class` type members by adding a `: class` to the `protocol` declaration.
 
 ```swift
@@ -133,7 +154,7 @@ public protocol Fadeable : class{
 ```
 
 
-##### Option 2: Generic Protocol
+##### 1.2.2.0.2. Option 2: Generic Protocol
 
 Similar to javascript `this` fixes, we can capture the `self` parameter in a `_self` var. But It has to be done in outer scope. This "worked" but I am not sure if it is the right solution. If it is indeed okay, then it is more generic solution, as `Fadeable` can now be used on `struct`s as well.
 
@@ -157,7 +178,7 @@ public extension Fadeable {
 
 ```
 
-## Changing Pod Metadata
+## 1.3. Changing Pod Metadata
 
 - Under `Fadeable` project -> `Podspec Metadata` -> open `Fadeable.podspec`
 - It is a ruby script. XCode provides syntax highlighting. Click on the file-> On the right side, choose `Identity` pane and Select `Type` as `Ruby Script`.
@@ -167,7 +188,7 @@ public extension Fadeable {
 [PodSpecSyntax]:Images/PodSpecSyntax.png
 
 
-## Changing Usage Code
+## 1.4. Changing Usage Code
 
 To change the example code that uses this pod library
 - Under `Fadeable` project -> `Example for Fadeable` folder, modify the code.
@@ -176,7 +197,7 @@ To change the example code that uses this pod library
 
 [ExampleCode]:Images/ExampleCode.png
 
-### Setup ViewController
+### 1.4.1. Setup ViewController
 
 In the example code in `ViewController.swift`, we will consume the `Fadeable` framework, use to to fade out or fade in a `UIView` object on a view.
 
@@ -203,7 +224,7 @@ NOTE: The `!` at the end indicates that this object will be "unboxed" when acces
 ```swift
 import Fadeable
 ``` 
-### Add the view
+### 1.4.2. Add the view
 
 - Go to `Main.storyboard` 
 - Drag and drop a `UIView` and a `Button` onto the layout.
@@ -213,7 +234,7 @@ import Fadeable
 [SetupView]:Images/SetupView.png
 
 
-### Wire up the View
+### 1.4.3. Wire up the View
 
 - Open the `Main.storyboard` file.
 - `[OPTION-Click]` (or `Alt-Click` if using windows keyboard on mac mini)  `ViewController.swift` so that both files are opened side-by-side.
