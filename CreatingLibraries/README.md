@@ -2,26 +2,27 @@
 
 - make sure cocoa pods is installed
 ```
-brew install cocoapods
+$ sudo gem install cocoapods
 ```
 
 <!-- TOC -->
 
 - [1. Creating Pod Libraries](#1-creating-pod-libraries)
-	- [1.1. Creating the Pod](#11-creating-the-pod)
-	- [1.2. Adding the Code](#12-adding-the-code)
-		- [1.2.1. Swift 4 Compiler Issues](#121-swift-4-compiler-issues)
-			- [1.2.1.1. Issue 1: NSTimeInterval is now TimeInterval](#1211-issue-1-nstimeinterval-is-now-timeinterval)
-			- [1.2.1.2. Issue 2: Passing non-escaping parameter 'completion' to function expecting an @escaping](#1212-issue-2-passing-non-escaping-parameter-completion-to-function-expecting-an-escaping)
-			- [1.2.1.3. Issue 3: Type 'UIView' does not conform to protocol 'Fadeable'](#1213-issue-3-type-uiview-does-not-conform-to-protocol-fadeable)
-		- [1.2.2. Issue 4: Closure cannot implicitly capture a mutating self parameter](#122-issue-4-closure-cannot-implicitly-capture-a-mutating-self-parameter)
-				- [1.2.2.0.1. Option 1: Class-Type Protocol](#12201-option-1-class-type-protocol)
-				- [1.2.2.0.2. Option 2: Generic Protocol](#12202-option-2-generic-protocol)
-	- [1.3. Changing Pod Metadata](#13-changing-pod-metadata)
-	- [1.4. Changing Usage Code](#14-changing-usage-code)
-		- [1.4.1. Setup ViewController](#141-setup-viewcontroller)
-		- [1.4.2. Add the view](#142-add-the-view)
-		- [1.4.3. Wire up the View](#143-wire-up-the-view)
+    - [1.1. Creating the Pod](#11-creating-the-pod)
+    - [1.2. Adding the Code](#12-adding-the-code)
+        - [1.2.1. Swift 4 Compiler Issues](#121-swift-4-compiler-issues)
+            - [1.2.1.1. Issue 1: NSTimeInterval is now TimeInterval](#1211-issue-1-nstimeinterval-is-now-timeinterval)
+            - [1.2.1.2. Issue 2: Passing non-escaping parameter 'completion' to function expecting an @escaping](#1212-issue-2-passing-non-escaping-parameter-completion-to-function-expecting-an-escaping)
+            - [1.2.1.3. Issue 3: Type 'UIView' does not conform to protocol 'Fadeable'](#1213-issue-3-type-uiview-does-not-conform-to-protocol-fadeable)
+        - [1.2.2. Issue 4: Closure cannot implicitly capture a mutating self parameter](#122-issue-4-closure-cannot-implicitly-capture-a-mutating-self-parameter)
+                - [1.2.2.0.1. Option 1: Class-Type Protocol](#12201-option-1-class-type-protocol)
+                - [1.2.2.0.2. Option 2: Generic Protocol](#12202-option-2-generic-protocol)
+    - [1.3. Changing Pod Metadata](#13-changing-pod-metadata)
+    - [1.4. Changing Usage Code](#14-changing-usage-code)
+        - [1.4.1. Setup ViewController](#141-setup-viewcontroller)
+        - [1.4.2. Add the view](#142-add-the-view)
+        - [1.4.3. Wire up the View](#143-wire-up-the-view)
+    - [1.5. Tag the Repository](#15-tag-the-repository)
 
 <!-- /TOC -->
 
@@ -244,4 +245,25 @@ import Fadeable
 
 [IBOutletCircle]:Images/IBOutletCircle.png
 - Click on the `circle` next to `@IBAction` code and drag it onto the `Button` control on the storyboard. This will associate the tap of the button control to this code.
+
+
+## 1.5. Tag the Repository
+
+- Add a tag to the repository
+
+```bash
+git tag 0.1.0
+```
+- push the tag to central repo
+
+```bash
+git push --tags
+```
+
+
+
+
+
+
+
 
